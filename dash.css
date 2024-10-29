@@ -7,25 +7,12 @@
 
 body {
     background-color: #f0f2f5;
-    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
-
-.user-info{
-    gap: 10px;
-}
-
-.user-info i{
-    font-size: 20px;
-}
-
-.user-info .username{
-    font-size: 1.4rem;
-}
-
 .admin-header {
     width: 100%;
     display: flex;
@@ -38,11 +25,11 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    height: 85px;
+    height: 60px;
 }
 
 .logo img {
-    width: 160px;
+    width: 110px;
 }
 
 .user-info {
@@ -51,10 +38,11 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
+    gap: 10px;
 }
 
 .user-info i {
-    margin-left: 8px;
+    font-size: 16px;
 }
 
 .user-info .arrow {
@@ -62,7 +50,7 @@ body {
 }
 
 .user-info .arrow.rotate {
-    transform: rotate(180deg); /* Gira a seta para baixo quando o menu estiver aberto */
+    transform: rotate(180deg);
 }
 
 .dropdown-menu {
@@ -83,7 +71,6 @@ body {
     padding: 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
 }
 
 .dropdown-menu li a {
@@ -106,114 +93,107 @@ body {
 .dropdown-menu.show {
     display: block;
 }
-
 .main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 1200px;
+    padding: 20px;
+    flex: 1;
+    margin-top: 60px; /* Deixa espaço para o cabeçalho */
     text-align: center;
 }
-
 h1 {
-    margin-top: -50px;
     text-transform: uppercase;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
+    font-size: 2rem;
+    margin-bottom: 30px;
     color: #333;
+    font-weight: bold;
 }
 
 .menu-options {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    align-items: center; /* Centraliza os cards verticalmente */
+    gap: 15px;
     flex-wrap: wrap;
 }
 
-.menu-options a{
+
+.menu-options a {
     text-decoration: none;
-    color: #1e90ff;
 }
 
 .menu-card {
     background-color: #ffffff;
     border-radius: 15px;
-    width: 250px;
-    padding: 40px;
+    width: 180px;
+    padding: 20px;
     text-align: center;
     cursor: pointer;
-    height: 25vh;
+    height: 180px;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centraliza os ícones e textos no centro do card */
 }
 
 .menu-card i {
-    font-size: 50px;
-    margin-bottom: 20px;
+    font-size: 35px;
+    margin-bottom: 10px;
     color: #1e90ff;
 }
 
 .menu-card h2 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     color: #1e90ff;
 }
 
-
 .menu-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    
 }
 
-@media (max-width: 768px) {
-    .menu-options {
-        flex-direction: column;
-        gap: 20px;
-    }
-}
-
+/* Estilo do rodapé */
 .admin-footer {
-    background-color: #ffffff; 
-    color: #333; 
-    display: flex; 
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
     justify-content: space-around;
-    align-items: center; 
-    padding: 0; 
+    align-items: center;
+    padding: 10px 0;
     flex-wrap: wrap;
-    position: fixed; 
-    bottom: 0;
-    width: 100%; 
-    z-index: 100; 
+    width: 100%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid #e0e0e0; 
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
 }
 
-
-.footer-logo img{
-    text-align: left;
-    width: 160px;
-    
+.footer-logo img {
+    width: 100px;
 }
 
 .admin-footer .footer-info {
-    display: flex; 
-    justify-content: center;
+    display: flex;
     align-items: center;
-    text-align: center;
-    font-size: 1em;
     gap: 10px;
+    font-size: 0.9em;
 }
-
 
 .footer-rights {
     text-align: center;
-    width: 100%; 
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-size: 1em;
+    width: 100%;
+    margin-top: 5px;
+    font-size: 0.8em;
     font-weight: 300;
 }
 
 .admin-footer i {
-    font-size: 1em; 
+    font-size: 1em;
 }

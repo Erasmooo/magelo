@@ -11,9 +11,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center; 
+    align-items: center;
     color: #333;
-    transition: background 0.3s ease; 
+    transition: background 0.3s ease;
 }
 
 .admin-header {
@@ -41,10 +41,11 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
+    gap: 10px;
 }
 
 .user-info i {
-    margin-left: 8px;
+    font-size: 24px;
 }
 
 .user-info .arrow {
@@ -100,35 +101,42 @@ body {
 .main-container {
     width: 100%;
     max-width: 1200px;
-    height: 100vh;
-    margin-top: 100px; /* Ajuste para a navbar fixa */
+    margin-top: 80px;
     text-align: center;
     background-color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra para destacar o conteúdo */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 40px 30px;
     margin-bottom: 20px;
-    flex-grow: 1; /* O conteúdo cresce e empurra o footer */
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 50px;
-    color: #1e90ff; /* Cor azul para destaque */
+    color: #1e90ff;
     font-weight: 600;
 }
 
-/* Estilos para inputs e labels alinhados */
+/* Estilos para mensagens de erro e sucesso */
+.error-msg {
+    color: red;
+}
+
+.success-msg {
+    color: green;
+}
+
+/* Estilos para inputs e labels */
 .form-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o formulário horizontalmente */
+    align-items: center;
     margin-top: 30px;
 }
 
 .form-container form {
     width: 80%;
-    max-width: 600px; /* Limite de largura do formulário */
+    max-width: 600px;
     display: flex;
     flex-direction: column;
 }
@@ -137,11 +145,12 @@ h1 {
     text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
-    align-self: flex-start; /* Alinhamento à esquerda */
+    align-self: flex-start;
 }
 
-.form-container form input[type="text"] {
-    width: 100%; /* Ajuste da largura para 100% dentro do formulário */
+.form-container form input,
+.form-container form select {
+    width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -149,12 +158,12 @@ h1 {
     transition: border-color 0.3s ease;
 }
 
-input[type="text"]:focus {
+input:focus,
+select:focus {
     border-color: #1e90ff;
     outline: none;
 }
 
-/* Estilo dos botões */
 button, .btn {
     background-color: #1e90ff;
     color: white;
@@ -164,21 +173,14 @@ button, .btn {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-bottom: 20px; /* Adicionando margem inferior */
+    margin-bottom: 20px;
 }
 
 button:hover, .btn:hover {
     background-color: #0b68c1;
-    transform: translateY(-3px); /* Efeito de elevação ao hover */
+    transform: translateY(-3px);
 }
 
-.form-container form .form-actions {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-/* Tabela de Funcionários */
 .employee-table {
     width: 100%;
     margin-top: 30px;
@@ -198,7 +200,7 @@ button:hover, .btn:hover {
 
 .employee-table td {
     vertical-align: middle;
-    text-align: center; 
+    text-align: center;
 }
 
 .employee-table td button {
@@ -213,9 +215,9 @@ button:hover, .btn:hover {
 }
 
 .employee-table td button:hover {
-    background-color: #0b68c1; 
+    background-color: #0b68c1;
 }
 
 .employee-table td .btn {
-    margin: 0 5px; 
+    margin: 0 5px;
 }

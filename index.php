@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -19,29 +20,24 @@
         <div class="login-logo">
           <img src="img/logo-magelo.PNG" alt="logotipo" />
         </div>
-        <form id="loginForm">
+        <form id="loginForm" action="processar_login.php" method="POST">
           <div class="input-group">
             <i class="fa-solid fa-user"></i>
-            <input type="text" id="usuario" placeholder="usuário" required />
+            <input type="text" id="usuario" name="usuario" placeholder="usuário" required />
             <span class="error-message" id="usuarioError"></span>
           </div>
-
+        
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input
-              type="password"
-              id="senha"
-              placeholder="palavra-passe"
-              required
-            />
+            <input type="password" id="senha" name="senha" placeholder="palavra-passe" required />
             <span class="error-message" id="senhaError"></span>
           </div>
-
+        
           <button type="submit" class="login-button">ENTRAR</button>
         </form>
       </div>
     </div>
 
-    <script src="js/script.js"></script>
+    
   </body>
 </html>
