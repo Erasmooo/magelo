@@ -22,235 +22,354 @@ $funcionarios = $stmt_funcionarios->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Gestão de Funcionários - Magelo Fábrica de Gelo</title>
-    <link rel="stylesheet" href="css/funcionario.css">
+    <link rel="stylesheet" href="css/funcionario.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #333;
-            min-height: 100vh;
-        }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    min-height: 100vh;
+}
 
-        .admin-header {
+.admin-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 65px;
+}
+
+.admin-header .logo img {
+    width: 120px;
+}
+
+.admin-header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.admin-header .user-info i {
+    font-size: 20px;
+}
+
+.main-container {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #1e90ff;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1e90ff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0b68c1;
+}
+
+/* Contêiner para rolagem horizontal da tabela */
+        /* Contêiner para rolagem horizontal */
+        .table-container {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 30px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            height: 65px;
-        }
-
-        .admin-header .logo img {
-            width: 120px;
-        }
-
-        .admin-header .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .admin-header .user-info i {
-            font-size: 20px;
-        }
-
-        .main-container {
-            margin-top: 100px;
-            width: 100%;
-            max-width: 1200px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #1e90ff;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Suporte para rolagem suave em dispositivos móveis */
             margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #1e90ff;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #0b68c1;
         }
 
         .employee-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            min-width: 800px; /* Define uma largura mínima para forçar a rolagem horizontal */
         }
 
-        .employee-table th, .employee-table td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
+.employee-table th, .employee-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    white-space: nowrap; /* Evita quebra de linha nas células */
+    font-size: 14px;
+}
 
-        .employee-table th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
+.employee-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
 
-        .btn.add-btn {
-            float: right;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
+/* Botões */
+.btn.add-btn {
+    float: right;
+    margin-bottom: 15px;
+    display: inline-block;
+}
 
-        .btn.save-btn {
-            margin-top: 20px;
-        }
+.btn.save-btn {
+    margin-top: 20px;
+}
 
-        .btn.cancel-btn {
-            background-color: #f44336;
-        }
+.btn.cancel-btn {
+    background-color: #f44336;
+}
 
-        .btn.cancel-btn:hover {
-            background-color: #c0392b;
-        }
+.btn.cancel-btn:hover {
+    background-color: #c0392b;
+}
 
-        .form-container {
-            display: none;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.form-container {
+    display: none;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-        .form-container input, .form-container select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+.form-container input, .form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
-        .form-container h2 {
-            text-align: center;
-            color: #1e90ff;
-            margin-bottom: 20px;
-        }
+.form-container h2 {
+    text-align: center;
+    color: #1e90ff;
+    margin-bottom: 20px;
+}
 
-        .btn-voltar {
-            display: block;
-            margin: 20px auto;
-            background-color: #0b68c1;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            text-align: center;
-        }
+.btn-voltar {
+    display: block;
+    margin: 20px auto;
+    background-color: #0b68c1;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+}
 
-        .table-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
+.table-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
 
-        .table-actions .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            width: 35px;
-            height: 35px;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            background-color: #1e90ff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.table-actions .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        .table-actions .btn-edit {
-            background-color: #1e90ff;
-        }
+.table-actions .btn-edit {
+    background-color: #1e90ff;
+}
 
-        .table-actions .btn-delete {
-            background-color: #f44336;
-        }
+.table-actions .btn-delete {
+    background-color: #f44336;
+}
 
-        .table-actions .btn:hover {
-            background-color: #0b68c1;
-        }
+.table-actions .btn:hover {
+    background-color: #0b68c1;
+}
 
-        .table-actions .btn-delete:hover {
-            background-color: #c0392b;
-        }
+.table-actions .btn-delete:hover {
+    background-color: #c0392b;
+}
 
-        .admin-footer {
-            background-color: #ffffff;
-            color: #333;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            flex-wrap: wrap;
-            width: 100%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-top: 1px solid #e0e0e0;
-            margin-top: auto;
-        }
+.admin-footer {
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+}
 
-        .footer-logo img {
-            width: 100px;
-        }
+.footer-logo img {
+    width: 100px;
+}
 
-        .admin-footer .footer-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9em;
-        }
+.admin-footer .footer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
 
-        .footer-rights {
-            text-align: center;
-            width: 100%;
-            margin-top: 5px;
-            font-size: 0.8em;
-            font-weight: 300;
-        }
+.footer-rights {
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+    font-size: 0.8em;
+    font-weight: 300;
+}
+       /* Responsividade para telas menores (até 768px) */
+       @media (max-width: 768px) {
+    .main-container {
+        padding: 20px;
+        margin-top: 80px; /* Espaço para o cabeçalho fixo */
+    }
 
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 20px;
-            }
+    /* Tabela com rolagem horizontal */
+    .employee-table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch; /* Rolagem suave em iOS */
+    }
 
-            .employee-table th, .employee-table td {
-                padding: 10px;
-            }
-        }
+    .employee-table th, .employee-table td {
+        font-size: 14px;
+        padding: 10px;
+        white-space: nowrap; /* Evita quebra de texto */
+    }
+
+    /* Ajuste para botão de "Adicionar Pedido" */
+    .btn.add-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* Ajuste do cabeçalho */
+    .admin-header {
+        padding: 10px 20px;
+    }
+
+    .admin-header .logo img {
+        width: 100px;
+    }
+
+    .admin-header .user-info i {
+        font-size: 18px;
+    }
+
+    .admin-header .user-info {
+        font-size: 14px;
+    }
+
+    /* Rodapé ajustado para telas menores */
+    .admin-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .footer-rights {
+        font-size: 0.75em;
+    }
+}
+
+/* Responsividade para telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+    .main-container {
+        padding: 15px;
+        margin-top: 90px;
+    }
+
+    /* Tabela com rolagem horizontal para telas muito pequenas */
+    .employee-table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .employee-table th, .employee-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    /* Botão "Adicionar Pedido" para ocupar toda a largura */
+    .btn.add-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Ajuste do cabeçalho para telas menores */
+    .admin-header {
+        padding: 10px;
+    }
+
+    .admin-header .logo img {
+        width: 90px;
+    }
+
+    .admin-header .user-info {
+        font-size: 12px;
+    }
+
+    /* Ajuste do rodapé */
+    .admin-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-rights {
+        font-size: 0.7em;
+    }
+
+    .footer-logo img {
+        width: 80px;
+    }
+}
+
+
+
     </style>
 </head>
 <body>
@@ -258,7 +377,9 @@ $funcionarios = $stmt_funcionarios->fetchAll(PDO::FETCH_ASSOC);
     <!-- Cabeçalho -->
     <div class="admin-header">
         <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            <a href="admin_dashboard.php">
+                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo ">
+            </a>
         </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
@@ -278,6 +399,7 @@ $funcionarios = $stmt_funcionarios->fetchAll(PDO::FETCH_ASSOC);
             <i class="fas fa-plus"></i> Adicionar Funcionário
         </button>
 
+        <div class="table-container">
         <table class="employee-table">
             <thead>
                 <tr>
@@ -324,6 +446,8 @@ $funcionarios = $stmt_funcionarios->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
+    </div>
+
     <script>
         // Dropdown Menu Script
         const userInfo = document.querySelector(".user-info");
@@ -346,26 +470,11 @@ $funcionarios = $stmt_funcionarios->fetchAll(PDO::FETCH_ASSOC);
         };
     </script>
     <!-- Footer -->
-    <div class="admin-footer">
-        <div class="footer-logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-envelope"></i>
-            <span>magelo.moz@gmail.com</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-phone"></i>
-            <span>+258 82 306 1764</span>
-        </div>
-        <div class="footer-rights">
-            &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
-        </div>
-    </div>
+    <footer class="admin-footer">
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
+    </footer>
     <script>
         // Dropdown Menu Script
         const userInfo = document.querySelector(".user-info");

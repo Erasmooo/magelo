@@ -1,0 +1,499 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Cabeçalho do Admin */
+.admin-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
+}
+
+.logo img {
+    width: 90px; /* Tamanho reduzido do logo */
+}
+
+.user-info {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.user-info i {
+    font-size: 16px;
+}
+
+.user-info .arrow {
+    transition: transform 0.3s ease;
+}
+
+.user-info .arrow.rotate {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px;
+    border-radius: 8px;
+    width: 150px;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu li a i {
+    margin-right: 10px;
+}
+
+.dropdown-menu li a:hover {
+    color: #1e90ff;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Container Principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    flex: 1;
+    margin-top: 60px; /* Espaço para o cabeçalho */
+    text-align: center;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: bold;
+}
+
+.menu-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Estilo dos Cards do Menu */
+.menu-options a {
+    text-decoration: none;
+}
+
+.menu-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    height: 160px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-card i {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #1e90ff;
+}
+
+.menu-card h2 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Rodapé */
+.admin-footer {
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+}
+
+.footer-logo img {
+    width: 80px; /* Ajusta o tamanho do logo no rodapé */
+}
+
+.admin-footer .footer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.footer-rights {
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+.admin-footer i {
+    font-size: 1em;
+}
+
+/* Media Queries para Dispositivos Móveis */
+@media (max-width: 768px) {
+    .menu-card {
+        width: 140px;
+        height: 140px;
+        padding: 15px;
+    }
+    .menu-card i {
+        font-size: 28px;
+    }
+    .menu-card h2 {
+        font-size: 15px;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .user-info {
+        font-size: 14px;
+    }
+    .logo img {
+        width: 80px; /* Reduz o tamanho do logo em tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 15px;
+    }
+    .logo img {
+        width: 70px;
+    }
+    h1 {
+        font-size: 1.4rem; /* Reduz o tamanho do título */
+    }
+    .menu-card {
+        width: 100%; /* Cards ocupam toda a largura no mobile */
+        max-width: 120px;
+        height: auto;
+        padding: 10px;
+    }
+    .menu-card i {
+        font-size: 24px;
+    }
+    .menu-card h2 {
+        font-size: 14px;
+    }
+    .dropdown-menu {
+        right: 5px; /* Ajusta a posição do menu dropdown */
+    }
+    .user-info {
+        font-size: 12px;
+    }
+    .admin-footer {
+        padding: 5px;
+        flex-direction: column; /* Alinha o rodapé em uma coluna para mobile */
+    }
+    .footer-logo img {
+        width: 60px;
+    }
+}
+
+/* Estilo do Rodapé */
+.admin-footer {
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    gap: 10px;
+}
+
+.footer-logo img {
+    width: 80px; /* Ajusta o tamanho do logo */
+    margin-bottom: 10px;
+}
+
+.admin-footer .footer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    flex-direction: column;
+}
+
+.footer-info span,
+.footer-info a {
+    color: #333;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+.footer-info i {
+    color: #1e90ff;
+    font-size: 1em;
+    margin-right: 5px;
+}
+
+.footer-rights {
+    font-size: 0.8em;
+    font-weight: 300;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Media Queries para dispositivos móveis */
+@media (max-width: 768px) {
+    .footer-logo img {
+        width: 70px;
+    }
+    .admin-footer {
+        padding: 15px;
+    }
+    .footer-info span,
+    .footer-info a {
+        font-size: 0.85em;
+    }
+    .footer-rights {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo img {
+        width: 60px;
+    }
+    .admin-footer {
+        padding: 10px;
+    }
+    .footer-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-rights {
+        font-size: 0.7em;
+    }
+}
+/* Botão de Toggle para navegação dos meses */
+.months-toggle button {
+    background-color: #1e90ff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+    margin-top: 80px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.months-toggle button:hover {
+    background-color: #1c7ac7;
+}
+
+.months-toggle button i {
+    transition: transform 0.3s ease;
+}
+
+.months-toggle button i.rotate {
+    transform: rotate(180deg);
+}
+
+/* Configurações para exibir/ocultar a barra de navegação dos meses */
+#months-navigation {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    max-width: 350px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Classe .show para exibir a navegação dos meses */
+#months-navigation.show {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+}
+
+/* Barra de navegação dos meses organizada em duas colunas */
+.months-navigation a {
+    color: #333;
+    padding: 8px 15px;
+    background-color: #e0e0e0;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+
+.months-navigation a:hover {
+    background-color: #c0c0c0;
+}
+
+.months-navigation .active {
+    background-color: #1e90ff;
+    color: white;
+}
+
+/* Botões para escolher relatórios */
+.report-buttons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 350px;
+}
+
+.report-buttons button {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #f0f2f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    flex: 1 1 45%;
+    text-align: center;
+}
+
+.report-buttons button.active {
+    background-color: #1e90ff;
+    color: white;
+}
+
+.report-buttons button:hover {
+    background-color: #1e90ff;
+    color: white;
+}
+
+/* Tabelas de Relatórios com Contêineres de Rolagem Horizontal */
+
+
+/* Títulos fixos acima das tabelas */
+.report-content h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Container com rolagem horizontal para tabelas */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    min-width: 600px; /* Garante que a tabela tenha um tamanho mínimo para rolagem */
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap; /* Impede que o texto quebre para múltiplas linhas */
+}
+
+table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    color: #333;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}

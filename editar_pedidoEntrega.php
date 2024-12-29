@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Editar Pedido - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
     <script>
@@ -151,5 +152,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         };
     </script>
+    <footer class="admin-footer">
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
+    </footer>
 </body>
 </html>

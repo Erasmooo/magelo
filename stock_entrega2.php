@@ -38,6 +38,7 @@ $totals = $stmt_totals->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Gestão de Estoque do Caminhão - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="stock.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -160,12 +161,49 @@ $totals = $stmt_totals->fetchAll(PDO::FETCH_ASSOC);
                 text-align: center;
             }
         }
+
+  
+        /* Estilos do modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .close-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
     <div class="admin-header">
-        <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+    <div class="logo">
+            <a href="stock_dashboard.php">
+                 <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
         </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
@@ -180,6 +218,13 @@ $totals = $stmt_totals->fetchAll(PDO::FETCH_ASSOC);
     <!-- Container Principal -->
     <div class="main-container">
         <h1>Gestão de Stock do Camião</h1>
+            <!-- Modal de Erro -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <p>Estoque insuficiente no depósito principal!</p>
+            <button class="close-btn" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
 
         <!-- Formulário para Abastecer o Caminhão -->
         <div class="form-container">
@@ -288,25 +333,22 @@ $totals = $stmt_totals->fetchAll(PDO::FETCH_ASSOC);
                 }
             }
         };
+
+                // Função para fechar o modal
+        function closeModal() {
+            document.getElementById("errorModal").style.display = "none";
+        }
+
+        // Verifica se existe um parâmetro de erro na URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('erro')) {
+            document.getElementById("errorModal").style.display = "flex";
+        }
     </script>
 
     <!-- Footer -->
     <footer class="admin-footer">
-      <div class="footer-logo">
-        <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-envelope"></i>
-        <span>magelo.moz@gmail.com</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-phone"></i>
-        <span>+258 82 306 1764</span>
-      </div>
+    <footer class="admin-footer">
       <div class="footer-rights">
         <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
       </div>

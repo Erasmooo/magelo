@@ -157,22 +157,31 @@
             background-color: #0b68c1;
         }
 
+       /* Ajuste de tabela */
         .employee-table {
-            width: 100%;
+            width: 80%;
+            margin: 0 auto;
             border-collapse: collapse;
         }
-
         .employee-table th, .employee-table td {
-            padding: 15px;
+            padding: 8px 12px; /* Diminuir o espaçamento */
+            border: 1px solid #ddd;
             text-align: center;
-            border-bottom: 1px solid #ddd;
+            font-size: 14px; /* Ajustar o tamanho da fonte */
         }
-
         .employee-table th {
-            background-color: #f4f4f4;
+            background-color: #f2f2f2;
             font-weight: bold;
         }
+        .employee-table td {
+            background-color: #fff;
+        }
+        .form-container {
+            width: 60%;
+            margin: 0 auto;
+        }
 
+        
         /* Estilo do rodapé */
         .admin-footer {
             background-color: #ffffff;
@@ -209,4 +218,41 @@
 
         .admin-footer i {
             font-size: 1em;
+                }
+        .btn-remover {
+            background-color: #1e90ff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
         }
+
+        .btn-remover:hover {
+            background-color: #1e90ff;
+        }
+
+        /* Ajuste do input de "Remover Quantidade" em telas menores */
+@media (max-width: 768px) {
+    .employee-table input[name="quantidade_remover"] {
+        width: 100px; /* Define uma largura maior para o input em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .employee-table input[name="quantidade_remover"] {
+        width: 80px; /* Ajusta ainda mais para telas muito pequenas */
+    }
+}
+
+.table-container {
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+    width: 100%;
+    margin: 0 auto;
+}
+
+.employee-table {
+    width: 100%; /* Mantém a tabela na largura completa dentro do contêiner */
+    border-collapse: collapse;
+}

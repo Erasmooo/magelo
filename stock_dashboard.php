@@ -17,6 +17,7 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Painel Armazém - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="dash.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -43,15 +44,15 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
     <div class="main-container">
         <h1>Menu Principal - Gestor Fabrica</h1>
         <div class="menu-options">
-            <a href="stock.php" class="menu-card">
+            <a href="adicionar_stockNormal.php" class="menu-card">
                 <i class="fas fa-box"></i>
                 <h2>Adicionar Stock</h2>
             </a>
 
-            <a href="pedidoEntrega.php" class="menu-link">
+            <a href="vendaEntregador.php" class="menu-link">
                 <div class="menu-card">
                     <i class="fas fa-shopping-cart"></i>
-                    <h2>Pedidos e Entregas</h2>
+                    <h2>Vendas</h2>
                 </div>
             </a>
             <a href="stock_entrega2.php" class="menu-link">
@@ -85,22 +86,7 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
       };
     </script>
 
-<footer class="admin-footer">
-      <div class="footer-logo">
-        <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-envelope"></i>
-        <span>magelo.moz@gmail.com</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-phone"></i>
-        <span>+258 82 306 1764</span>
-      </div>
+    <footer class="admin-footer">
       <div class="footer-rights">
         <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
       </div>

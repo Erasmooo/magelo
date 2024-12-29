@@ -13,12 +13,14 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
+
+/* Cabeçalho do Admin */
 .admin-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 20px;
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -29,16 +31,16 @@ body {
 }
 
 .logo img {
-    width: 110px;
+    width: 90px; /* Tamanho reduzido do logo */
 }
 
 .user-info {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     display: flex;
     align-items: center;
     cursor: pointer;
-    gap: 10px;
+    gap: 8px;
 }
 
 .user-info i {
@@ -57,7 +59,7 @@ body {
     display: none;
     position: absolute;
     top: 60px;
-    right: 0;
+    right: 10px;
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     list-style: none;
@@ -76,7 +78,7 @@ body {
 .dropdown-menu li a {
     text-decoration: none;
     color: #333;
-    font-size: 16px;
+    font-size: 14px;
     transition: color 0.3s;
     display: flex;
     align-items: center;
@@ -93,6 +95,8 @@ body {
 .dropdown-menu.show {
     display: block;
 }
+
+/* Container Principal */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -102,12 +106,13 @@ body {
     max-width: 1200px;
     padding: 20px;
     flex: 1;
-    margin-top: 60px; /* Deixa espaço para o cabeçalho */
+    margin-top: 60px; /* Espaço para o cabeçalho */
     text-align: center;
 }
+
 h1 {
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 30px;
     color: #333;
     font-weight: bold;
@@ -116,12 +121,12 @@ h1 {
 .menu-options {
     display: flex;
     justify-content: center;
-    align-items: center; /* Centraliza os cards verticalmente */
+    align-items: center;
     gap: 15px;
     flex-wrap: wrap;
 }
 
-
+/* Estilo dos Cards do Menu */
 .menu-options a {
     text-decoration: none;
 }
@@ -129,28 +134,28 @@ h1 {
 .menu-card {
     background-color: #ffffff;
     border-radius: 15px;
-    width: 180px;
+    width: 160px;
     padding: 20px;
     text-align: center;
     cursor: pointer;
-    height: 180px;
+    height: 160px;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #e6e6e6;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* Centraliza os ícones e textos no centro do card */
+    align-items: center;
 }
 
 .menu-card i {
-    font-size: 35px;
+    font-size: 30px;
     margin-bottom: 10px;
     color: #1e90ff;
 }
 
 .menu-card h2 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #1e90ff;
 }
@@ -160,7 +165,7 @@ h1 {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilo do rodapé */
+/* Rodapé */
 .admin-footer {
     background-color: #ffffff;
     color: #333;
@@ -176,7 +181,7 @@ h1 {
 }
 
 .footer-logo img {
-    width: 100px;
+    width: 80px; /* Ajusta o tamanho do logo no rodapé */
 }
 
 .admin-footer .footer-info {
@@ -196,4 +201,145 @@ h1 {
 
 .admin-footer i {
     font-size: 1em;
+}
+
+/* Media Queries para Dispositivos Móveis */
+@media (max-width: 768px) {
+    .menu-card {
+        width: 140px;
+        height: 140px;
+        padding: 15px;
+    }
+    .menu-card i {
+        font-size: 28px;
+    }
+    .menu-card h2 {
+        font-size: 15px;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .user-info {
+        font-size: 14px;
+    }
+    .logo img {
+        width: 80px; /* Reduz o tamanho do logo em tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 15px;
+    }
+    .logo img {
+        width: 70px;
+    }
+    h1 {
+        font-size: 1.4rem; /* Reduz o tamanho do título */
+    }
+    .menu-card {
+        width: 100%; /* Cards ocupam toda a largura no mobile */
+        max-width: 120px;
+        height: auto;
+        padding: 10px;
+    }
+    .menu-card i {
+        font-size: 24px;
+    }
+    .menu-card h2 {
+        font-size: 14px;
+    }
+    .dropdown-menu {
+        right: 5px; /* Ajusta a posição do menu dropdown */
+    }
+    .user-info {
+        font-size: 12px;
+    }
+    .admin-footer {
+        padding: 5px;
+        flex-direction: column; /* Alinha o rodapé em uma coluna para mobile */
+    }
+    .footer-logo img {
+        width: 60px;
+    }
+}
+
+/* Estilo do Rodapé */
+.admin-footer {
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    gap: 10px;
+}
+
+.footer-logo img {
+    width: 80px; /* Ajusta o tamanho do logo */
+    margin-bottom: 10px;
+}
+
+.admin-footer .footer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    flex-direction: column;
+}
+
+.footer-info span,
+.footer-info a {
+    color: #333;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+.footer-info i {
+    color: #1e90ff;
+    font-size: 1em;
+    margin-right: 5px;
+}
+
+.footer-rights {
+    font-size: 0.8em;
+    font-weight: 300;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Media Queries para dispositivos móveis */
+@media (max-width: 768px) {
+    .footer-logo img {
+        width: 70px;
+    }
+    .admin-footer {
+        padding: 15px;
+    }
+    .footer-info span,
+    .footer-info a {
+        font-size: 0.85em;
+    }
+    .footer-rights {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo img {
+        width: 60px;
+    }
+    .admin-footer {
+        padding: 10px;
+    }
+    .footer-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-rights {
+        font-size: 0.7em;
+    }
 }

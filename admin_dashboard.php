@@ -17,8 +17,9 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Painel Admin - Magelo Fábrica de Gelo</title>
-    <link rel="stylesheet" href="dash.css" />
+    <link rel="stylesheet" href="geral.css?v=<?php echo time(); ?>" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -26,8 +27,10 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
   </head>
   <body>
   <div class="admin-header">
-      <div class="logo">
-        <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
+      <div class="logo" >
+        <a href="admin_dashboard.php">
+          <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
+        </a>
       </div>
       <div class="user-info">
         <i class="fas fa-user"></i>
@@ -43,7 +46,7 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
     </div>
 
     <div class="main-container">
-      <h1>Menu Principal - Administrador</h1>
+      <h1>Administrador</h1>
       <div class="menu-options">
 
         <!-- Card de Dashboard -->
@@ -63,10 +66,10 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
         </a>
 
         <!-- Card de Pedido e Entrega -->
-        <a href="pedido.php" class="menu-link">
+        <a href="vendas.php" class="menu-link">
           <div class="menu-card">
             <i class="fas fa-shopping-cart"></i>
-            <h2>Pedido e Vendas</h2>
+            <h2>Vendas</h2>
           </div>
         </a>
 
@@ -110,6 +113,14 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
           </div>
         </a>
 
+         <!-- Card de Despesas -->
+         <a href="despesas.php" class="menu-link">
+          <div class="menu-card">
+            <i class="fas fa-wallet"></i>
+            <h2>Despesas</h2>
+          </div>
+        </a>
+
       </div>
     </div>
 
@@ -136,21 +147,6 @@ $nomeFuncionario = $_SESSION['funcionario_nome'];
     </script>
 
     <footer class="admin-footer">
-      <div class="footer-logo">
-        <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-envelope"></i>
-        <span>magelo.moz@gmail.com</span>
-      </div>
-      <div class="footer-info">
-        <i class="fas fa-phone"></i>
-        <span>+258 82 306 1764</span>
-      </div>
       <div class="footer-rights">
         <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
       </div>

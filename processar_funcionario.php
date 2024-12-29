@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idade = $_POST['age'];
     $genero = $_POST['gender'];
     $email = $_POST['email'];
-    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Lembre-se de hashear a senha
+    $senha = $_POST['senha'];// Lembre-se de hashear a senha
     $telefone = $_POST['phone'];
     $morada = $_POST['address'];
     $tipo_usuario = $_POST['userType'];

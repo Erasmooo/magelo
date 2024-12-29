@@ -18,118 +18,167 @@ $clientes = $stmt_clientes->fetchAll(PDO::FETCH_ASSOC);
 
 // Se o formulário for enviado, processa os dados do pedido
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $quantidade_cubo = $_POST['quantidade_cubo'];
-    $quantidade_barra = $_POST['quantidade_barra'];
-    $clienteSelecionado = $_POST['cliente'];
+    $quantidade_cubo = !empty($_POST['quantidade_cubo']) ? $_POST['quantidade_cubo'] : 0;
+    $preco_cubo = !empty($_POST['preco_cubo']) ? $_POST['preco_cubo'] : 0;
+    $quantidade_barra = !empty($_POST['quantidade_barra']) ? $_POST['quantidade_barra'] : 0;
+    $preco_barra = !empty($_POST['preco_barra']) ? $_POST['preco_barra'] : 0;
+    $clienteSelecionado = $_POST['nome_cliente'];
+    $funcionario_nome = $_SESSION['funcionario_nome'];
+    $funcionario_id = $_SESSION['funcionario_id'];
 
     // Inicializa variáveis de cliente
-    $nomeCliente = "";
-    $contato = "";
-    $enderecoEntrega = "";
-
-    // Verifica se um cliente anônimo ou um cliente registrado foi selecionado
+    $nome_cliente = "";
     if ($clienteSelecionado === 'anonimo') {
-        $nomeCliente = "Cliente Anônimo";
-        $contato = "";  // Não precisa de contato para cliente anônimo
-        $enderecoEntrega = "";  // Não precisa de endereço para cliente anônimo
+        $nome_cliente = "Cliente Anônimo";
     } else {
-        // Encontra o cliente selecionado
         foreach ($clientes as $cliente) {
             if ($cliente['id'] == $clienteSelecionado) {
-                $nomeCliente = $cliente['nome'];
-                $contato = $cliente['telefone'];
-                $enderecoEntrega = $cliente['endereco']; // Preenche o endereço do cliente
+                $nome_cliente = $cliente['nome']; // Captura o nome do cliente selecionado
                 break;
             }
         }
     }
 
-    // Verifica se as quantidades foram preenchidas e se ao menos um pedido é válido
-    if ((!empty($quantidade_cubo) || !empty($quantidade_barra)) && 
-        (!empty($enderecoEntrega) || $clienteSelecionado === 'anonimo')) {
-        
-        // Insere o pedido no banco de dados (separado por tipo de gelo)
-        if (!empty($quantidade_cubo)) {
-            $sql_cubo = "INSERT INTO pedidos (nome_cliente, contato, quantidade, tipo_produto, endereco_entrega, status) 
-                         VALUES (:nome_cliente, :contato, :quantidade, 'Gelo em Cubo', :endereco_entrega, 'pendente')";
-            $stmt_cubo = $pdo->prepare($sql_cubo);
-            $stmt_cubo->bindParam(':nome_cliente', $nomeCliente);
-            $stmt_cubo->bindParam(':contato', $contato);
-            $stmt_cubo->bindParam(':quantidade', $quantidade_cubo);
-            $stmt_cubo->bindParam(':endereco_entrega', $enderecoEntrega);
-            $stmt_cubo->execute();
-        }
+    // Calcula o total de venda
+    $total_cubo = $quantidade_cubo * $preco_cubo;
+    $total_barra = $quantidade_barra * $preco_barra;
+    $total_venda = $total_cubo + $total_barra;
 
-        if (!empty($quantidade_barra)) {
-            $sql_barra = "INSERT INTO pedidos (nome_cliente, contato, quantidade, tipo_produto, endereco_entrega, status) 
-                          VALUES (:nome_cliente, :contato, :quantidade, 'Gelo em Barra', :endereco_entrega, 'pendente')";
-            $stmt_barra = $pdo->prepare($sql_barra);
-            $stmt_barra->bindParam(':nome_cliente', $nomeCliente);
-            $stmt_barra->bindParam(':contato', $contato);
-            $stmt_barra->bindParam(':quantidade', $quantidade_barra);
-            $stmt_barra->bindParam(':endereco_entrega', $enderecoEntrega);
-            $stmt_barra->execute();
-        }
+    // Insere os dados na tabela de vendas
+    $sql_venda = "INSERT INTO vendas 
+                  (funcionario_id, funcionario_nome, nome_cliente, quantidade_cubo, preco_unitario_cubo, quantidade_barra, preco_unitario_barra, total_venda) 
+                  VALUES (:funcionario_id, :funcionario_nome, :nome_cliente, :quantidade_cubo, :preco_unitario_cubo, :quantidade_barra, :preco_unitario_barra, :total_venda)";
+    
+    $stmt_venda = $pdo->prepare($sql_venda);
+    $stmt_venda->bindParam(':funcionario_id', $funcionario_id);
+    $stmt_venda->bindParam(':funcionario_nome', $funcionario_nome);
+    $stmt_venda->bindParam(':nome_cliente', $nome_cliente);
+    $stmt_venda->bindParam(':quantidade_cubo', $quantidade_cubo);
+    $stmt_venda->bindParam(':preco_unitario_cubo', $preco_cubo);
+    $stmt_venda->bindParam(':quantidade_barra', $quantidade_barra);
+    $stmt_venda->bindParam(':preco_unitario_barra', $preco_barra);
+    $stmt_venda->bindParam(':total_venda', $total_venda);
+    $stmt_venda->execute();
 
-        header("Location: pedido.php?success=Pedido adicionado com sucesso!");
-        exit;
-    } else {
-        $error = "Por favor, preencha todos os campos necessários.";
-    }
+    // Redireciona para a página de confirmação com uma mensagem de sucesso
+    header("Location: pedido.php?success=Venda registrada com sucesso!");
+    exit;
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Adicionar Pedido - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>
-        function preencherDados(cliente) {
-            const clienteAnonimo = cliente.value === "anonimo";
-
-            document.getElementById('nome_cliente').value = clienteAnonimo ? "Cliente Anônimo" : cliente.options[cliente.selectedIndex].dataset.nome;
-            document.getElementById('contato').value = clienteAnonimo ? "" : cliente.options[cliente.selectedIndex].dataset.contato;
-            document.getElementById('endereco_entrega').value = clienteAnonimo ? "" : cliente.options[cliente.selectedIndex].dataset.endereco;
-
-            // Habilitar ou desabilitar campos para cliente anônimo
-            document.getElementById('nome_cliente').disabled = clienteAnonimo;
-            document.getElementById('contato').disabled = clienteAnonimo;
-            document.getElementById('endereco_entrega').disabled = clienteAnonimo;
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-
-        // Dropdown Menu Script
-        const userInfo = document.querySelector(".user-info");
-        const dropdownMenu = document.querySelector(".dropdown-menu");
-        const arrowIcon = document.querySelector(".arrow");
-
-        userInfo.addEventListener("click", () => {
-            dropdownMenu.classList.toggle("show");
-            arrowIcon.classList.toggle("rotate");
-        });
-
-        // Fecha o dropdown se o usuário clicar fora dele
-        window.onclick = function (event) {
-            if (!event.target.matches(".user-info, .user-info *")) {
-                if (dropdownMenu.classList.contains("show")) {
-                    dropdownMenu.classList.remove("show");
-                    arrowIcon.classList.remove("rotate");
-                }
-            }
-        };
-    
-    </script>
+        .main-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            margin-top: 80px; /* Adiciona uma margem superior para afastar do navbar */
+        }
+        h1 {
+            color: #1e90ff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            text-align: left;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn {
+            background-color: #1e90ff;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .cancel-btn {
+            background-color: #ccc;
+            color: #333;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .input-group input {
+            flex: 1;
+        }
+        .admin-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .admin-footer {
+            background-color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            color: #333;
+            font-size: 0.9em;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #e0e0e0;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
+    <!-- Navbar -->
     <div class="admin-header">
         <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            <a href="admin_dashboard.php">
+                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
         </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
@@ -143,131 +192,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Container Principal -->
     <div class="main-container">
-        <h1>Adicionar Pedido</h1>
+        <h1>Venda</h1>
 
-        <!-- Exibe mensagens de erro, se houver -->
         <?php if (isset($error)): ?>
-            <p class="error-msg"><?php echo $error; ?></p>
+            <p class="error-msg" style="color: red;"><?php echo $error; ?></p>
         <?php endif; ?>
 
         <!-- Formulário de Adicionar Pedido -->
         <div class="form-container">
-            <form action="" method="POST">
-                <h2>Informações do Pedido</h2>
-
+            <form action="processar_vendas.php" method="POST">
                 <label for="cliente">Selecionar Cliente:</label>
-                <select id="cliente" name="cliente" onchange="preencherDados(this)" required>
+                <select id="nome_cliente" name="nome_cliente" required>
                     <option value="" disabled selected>Selecione um cliente</option>
                     <option value="anonimo">Novo Cliente</option>
                     <?php foreach ($clientes as $cliente): ?>
-                        <option value="<?php echo $cliente['id']; ?>" 
-                                data-nome="<?php echo $cliente['nome']; ?>" 
-                                data-contato="<?php echo $cliente['telefone']; ?>" 
-                                data-endereco="<?php echo $cliente['endereco']; ?>">
+                        <option value="<?php echo $cliente['id']; ?>">
                             <?php echo $cliente['nome']; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
 
-                <label for="nome_cliente">Nome do Cliente:</label>
-                <input type="text" id="nome_cliente" name="nome_cliente" required>
+                <div class="input-group">
+                    <label for="quantidade_cubo">Quantidade de Gelo em Cubo:</label>
+                    <input type="number" id="quantidade_cubo" name="quantidade_cubo" placeholder="Digite a quantidade">
+                    <input type="number" id="preco_cubo" name="preco_cubo" placeholder="Preço unitário (Cubo)">
+                </div>
 
-                <label for="contato">Contacto:</label>
-                <input type="text" id="contato" name="contato" required>
+                <div class="input-group">
+                    <label for="quantidade_barra">Quantidade de Gelo em Barra:</label>
+                    <input type="number" id="quantidade_barra" name="quantidade_barra" placeholder="Digite a quantidade">
+                    <input type="number" id="preco_barra" name="preco_barra" placeholder="Preço unitário (Barra)">
+                </div>
 
-                <label for="quantidade_cubo">Quantidade de Gelo em Cubo:</label>
-                <input type="number" id="quantidade_cubo" name="quantidade_cubo">
-
-                <label for="quantidade_barra">Quantidade de Gelo em Barra:</label>
-                <input type="number" id="quantidade_barra" name="quantidade_barra">
-
-                <label for="endereco_entrega">Endereço de Entrega:</label>
-                <input type="text" id="endereco_entrega" name="endereco_entrega" required>
-
-                <button type="submit" class="btn">Adicionar Pedido</button>
-                <a href="pedido.php" class="btn cancel-btn">Cancelar</a>
+                <button type="submit" class="btn">Vender</button>
+                <a href="pedido.php" class="cancel-btn">Cancelar</a>
             </form>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Rodapé -->
     <footer class="admin-footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-envelope"></i>
-                <span>magelo.moz@gmail.com</span>
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-phone"></i>
-                <span>+258 82 306 1764</span>
-            </div>
-        </div>
-        <div class="footer-rights">
-            &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
-        </div>
+        &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
     </footer>
-
-    <style>
-        .admin-footer {
-            background-color: #fff;
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            border-top: 1px solid #e0e0e0;
-            width: 100%;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 80%;
-            max-width: 1200px;
-        }
-
-        .footer-logo img {
-            width: 150px;
-        }
-
-        .footer-info {
-            display: flex;
-            align-items: center;
-            font-size: 1em;
-            color: #333;
-        }
-
-        .footer-info i {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-
-        .footer-rights {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #333;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-info {
-                margin-bottom: 10px;
-            }
-        }
-    </style>
 
 </body>
 </html>

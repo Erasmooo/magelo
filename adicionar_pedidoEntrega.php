@@ -84,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Adicionar Pedido - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -190,26 +191,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
     <!-- Footer -->
     <footer class="admin-footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo" />
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Av. Karl Marx, Maputo, Moçambique</span>
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-envelope"></i>
-                <span>contato@magelogelo.com</span>
-            </div>
-            <div class="footer-info">
-                <i class="fas fa-phone"></i>
-                <span>+258 84 123 4567</span>
-            </div>
-        </div>
-        <div class="footer-rights">
-            &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
-        </div>
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
     </footer>
 
     <style>

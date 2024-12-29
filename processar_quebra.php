@@ -46,8 +46,8 @@ if ($stmt->execute()) {
 
     // Executa a atualização e verifica se foi bem-sucedida
     if ($stmtUpdate->execute()) {
-        header("Location: quebras.php?success=Quebra registrada e estoque de gelo atualizado com sucesso!");
-        exit;
+header("Location: quebras.php?success=1");
+exit;
     } else {
         echo "Erro ao atualizar o estoque de gelo.";
     }

@@ -83,24 +83,9 @@ $rotas = $stmt_rotas->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Footer -->
     <footer class="admin-footer">
-        <div class="footer-logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-envelope"></i>
-            <span>magelo.moz@gmail.com</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-phone"></i>
-            <span>+258 82 306 1764</span>
-        </div>
-        <div class="footer-rights">
-            <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
-        </div>
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
     </footer>
 
 </body>

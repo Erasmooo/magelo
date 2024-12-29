@@ -37,14 +37,16 @@ if (!$cliente) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['nome_cliente'];
     $endereco = $_POST['endereco'];
+    $nuit = $_POST['nuit'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
     $nome_rota = $_POST['rota'];
 
-    $sqlUpdate = "UPDATE clientes SET nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, nome_rota = :nome_rota WHERE id = :id";
+    $sqlUpdate = "UPDATE clientes SET nome = :nome, endereco = :endereco, nuit = :nuit, telefone = :telefone, email = :email, nome_rota = :nome_rota WHERE id = :id";
     $stmtUpdate = $pdo->prepare($sqlUpdate);
     $stmtUpdate->bindParam(':nome', $nome);
     $stmtUpdate->bindParam(':endereco', $endereco);
+    $stmtUpdate->bindParam(':nuit', $nuit);
     $stmtUpdate->bindParam(':telefone', $telefone);
     $stmtUpdate->bindParam(':email', $email);
     $stmtUpdate->bindParam(':nome_rota', $nome_rota);
@@ -70,10 +72,30 @@ $rotas = $stmtRotas->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Editar Cliente - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
+
+     <!-- Cabeçalho -->
+     <div class="admin-header">
+        <div class="logo">
+            <a href="admin_dashboard.php">
+                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
+        </div>
+        <div class="user-info">
+            <i class="fas fa-user"></i>
+            <span id="user-name"><?php echo $_SESSION['funcionario_nome']; ?></span>
+            <i class="fas fa-chevron-down arrow"></i>
+            <ul class="dropdown-menu">
+                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="main-container">
         <h1>Editar Cliente</h1>
 
@@ -87,6 +109,9 @@ $rotas = $stmtRotas->fetchAll(PDO::FETCH_ASSOC);
 
                 <label for="endereco">Endereço:</label>
                 <input type="text" id="endereco" name="endereco" value="<?php echo $cliente['endereco']; ?>" required>
+
+                <label for="nuit">Nuit:</label>
+                <input type="text" id="nuit" name="nuit" value="<?php echo $cliente['nuit']; ?>" required>
 
                 <label for="telefone">Telefone:</label>
                 <input type="text" id="telefone" name="telefone" value="<?php echo $cliente['telefone']; ?>" required>
@@ -129,5 +154,13 @@ $rotas = $stmtRotas->fetchAll(PDO::FETCH_ASSOC);
             }
         };
     </script>
+
+    
+    <!-- Footer -->
+    <footer class="admin-footer">
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
+    </footer>
 </body>
 </html>

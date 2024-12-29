@@ -22,6 +22,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Gestão de Pedidos - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/pedido.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -95,7 +96,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn:hover {
-            background-color: #0b68c1;
+            background-color:  #1e90ff;
         }
 
         .employee-table {
@@ -141,15 +142,15 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
 
         /* Cores diferenciadas para os botões de ação */
         .btn-finish {
-            background-color: #28a745;
+            background-color:  #1e90ff;
         }
 
         .btn-delete {
-            background-color: #dc3545;
+            background-color:  #1e90ff;
         }
 
         .btn-edit {
-            background-color: #ffc107;
+            background-color:  #1e90ff;
         }
 
         /* Ajustes no hover dos botões */
@@ -158,11 +159,11 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn-delete:hover {
-            background-color: #c82333;
+            background-color:  #1e90ff;
         }
 
         .btn-edit:hover {
-            background-color: #e0a800;
+            background-color:  #1e90ff;
         }
 
         .btn.add-btn {
@@ -180,7 +181,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn.cancel-btn:hover {
-            background-color: #c0392b;
+            background-color: ##0b68c1;
         }
 
         .form-container {
@@ -263,16 +264,123 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             font-weight: 300;
         }
 
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 20px;
-            }
+        /* Responsividade para telas menores (até 768px) */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 20px;
+        margin-top: 80px; /* Espaço para o cabeçalho fixo */
+    }
 
-            .employee-table th, .employee-table td {
-                padding: 10px;
-            }
-        }
-       
+    /* Tabela com rolagem horizontal */
+    .employee-table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch; /* Rolagem suave em iOS */
+    }
+
+    .employee-table th, .employee-table td {
+        font-size: 14px;
+        padding: 10px;
+        white-space: nowrap; /* Evita quebra de texto */
+    }
+
+    /* Ajuste para botão de "Adicionar Pedido" */
+    .btn.add-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* Ajuste do cabeçalho */
+    .admin-header {
+        padding: 10px 20px;
+    }
+
+    .admin-header .logo img {
+        width: 100px;
+    }
+
+    .admin-header .user-info i {
+        font-size: 18px;
+    }
+
+    .admin-header .user-info {
+        font-size: 14px;
+    }
+
+    /* Rodapé ajustado para telas menores */
+    .admin-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .footer-rights {
+        font-size: 0.75em;
+    }
+}
+
+/* Responsividade para telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+    .main-container {
+        padding: 15px;
+        margin-top: 90px;
+    }
+
+    /* Tabela com rolagem horizontal para telas muito pequenas */
+    .employee-table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .employee-table th, .employee-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    /* Botão "Adicionar Pedido" para ocupar toda a largura */
+    .btn.add-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Ajuste do cabeçalho para telas menores */
+    .admin-header {
+        padding: 10px;
+    }
+
+    .admin-header .logo img {
+        width: 90px;
+    }
+
+    .admin-header .user-info {
+        font-size: 12px;
+    }
+
+    /* Ajuste do rodapé */
+    .admin-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-rights {
+        font-size: 0.7em;
+    }
+
+    .footer-logo img {
+        width: 80px;
+    }
+}
+
+
+        
     </style>
 </head>
 <body>
@@ -280,8 +388,10 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
     <!-- Cabeçalho -->
     <div class="admin-header">
         <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
+            <a href="admin_dashboard.php">    
+                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
+            </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
             <span id="user-name"><?php echo $_SESSION['funcionario_nome']; ?></span>
@@ -349,26 +459,11 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Rodapé -->
-    <div class="admin-footer">
-        <div class="footer-logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-envelope"></i>
-            <span>magelo.moz@gmail.com.com</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-phone"></i>
-            <span>+258 82 306 1764</span>
-        </div>
-        <div class="footer-rights">
-            &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
-        </div>
-    </div>
+    <footer class="admin-footer">
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
+    </footer>
     <script>
         // Dropdown Menu Script
         const userInfo = document.querySelector(".user-info");

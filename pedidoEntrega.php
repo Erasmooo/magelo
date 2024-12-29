@@ -22,6 +22,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Gestão de Pedidos - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -33,7 +34,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Garante que o conteúdo ocupe toda a tela */
+            min-height: 100vh;
             color: #333;
         }
 
@@ -75,7 +76,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            flex-grow: 1; /* Permite que o conteúdo cresça */
+            flex-grow: 1;
         }
 
         h1 {
@@ -98,16 +99,24 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             background-color: #0b68c1;
         }
 
+        /* Contêiner com rolagem horizontal para a tabela */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
         .employee-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            min-width: 800px; /* Define um tamanho mínimo para a tabela */
         }
 
         .employee-table th, .employee-table td {
             padding: 15px;
             border-bottom: 1px solid #ddd;
             text-align: center;
+            white-space: nowrap;
         }
 
         .employee-table th {
@@ -115,16 +124,10 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
         }
 
-        .btn.add-btn {
-            float: right;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-
         .table-actions {
             display: flex;
             justify-content: center;
-            gap: 10px; /* Espaçamento entre os botões */
+            gap: 10px;
         }
 
         .table-actions .btn {
@@ -135,7 +138,6 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             width: 35px;
             height: 35px;
             font-size: 14px;
-            transition: background-color 0.3s ease;
             color: white;
             border: none;
             border-radius: 5px;
@@ -143,27 +145,27 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .table-actions .btn-edit {
-            background-color: #1e90ff; /* Cor do botão de edição */
+            background-color: #1e90ff;
         }
 
         .table-actions .btn-delete {
-            background-color: #f44336; /* Cor do botão de exclusão */
+            background-color: #f44336;
         }
 
         .table-actions .btn-finish {
-            background-color: #28a745; /* Cor do botão de finalização */
+            background-color: #28a745;
         }
 
         .table-actions .btn:hover {
-            background-color: #0b68c1; /* Cor de hover para edição */
+            background-color: #0b68c1;
         }
 
         .table-actions .btn-delete:hover {
-            background-color: #c0392b; /* Cor de hover para exclusão */
+            background-color: #c0392b;
         }
 
         .table-actions .btn-finish:hover {
-            background-color: #218838; /* Cor de hover para finalização */
+            background-color: #218838;
         }
 
         /* Responsividade */
@@ -189,7 +191,7 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             width: 100%; 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-top: 1px solid #e0e0e0;
-            margin-top: auto; /* Garante que o footer apareça no final do conteúdo */
+            margin-top: auto;
         }
 
         .footer-logo img {
@@ -231,8 +233,10 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Cabeçalho -->
     <div class="admin-header">
-        <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+    <div class="logo">
+            <a href="stock_dashboard.php">
+                 <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
         </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
@@ -253,95 +257,60 @@ $pedidos = $stmt_pedidos->fetchAll(PDO::FETCH_ASSOC);
             <i class="fas fa-plus"></i> Adicionar Pedido
         </button>
 
-        <!-- Tabela de Pedidos -->
-        <table class="employee-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Contato</th>
-                    <th>Quantidade</th>
-                    <th>Tipo de Gelo</th>
-                    <th>Endereço</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-    <?php if (!empty($pedidos)): ?>
-        <?php foreach ($pedidos as $pedido): ?>
-            <tr>
-                <td><?php echo $pedido['id']; ?></td>
-                <td><?php echo $pedido['nome_cliente']; ?></td>
-                <td><?php echo $pedido['contato']; ?></td>
-                <td><?php echo $pedido['quantidade']; ?> Unidades</td>
-                <td><?php echo $pedido['tipo_produto']; ?></td>
-                <td><?php echo $pedido['endereco_entrega']; ?></td>
-                <td><?php echo $pedido['status']; ?></td>
-                <td class="table-actions">
-                    <a href="editar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>" class="btn btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="apagar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>" class="btn btn-delete">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                    <a href="finalizar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>&quantidade=<?php echo $pedido['quantidade']; ?>&tipo_produto=<?php echo $pedido['tipo_produto']; ?>" class="btn btn-finish">
-                        <i class="fas fa-check"></i>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="8">Nenhum pedido encontrado.</td>
-        </tr>
-    <?php endif; ?>
-            </tbody>
-        </table>
+        <!-- Contêiner para rolagem horizontal -->
+        <div class="table-container">
+            <table class="employee-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Contato</th>
+                        <th>Quantidade</th>
+                        <th>Tipo de Gelo</th>
+                        <th>Endereço</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($pedidos)): ?>
+                        <?php foreach ($pedidos as $pedido): ?>
+                            <tr>
+                                <td><?php echo $pedido['id']; ?></td>
+                                <td><?php echo $pedido['nome_cliente']; ?></td>
+                                <td><?php echo $pedido['contato']; ?></td>
+                                <td><?php echo $pedido['quantidade']; ?> Unidades</td>
+                                <td><?php echo $pedido['tipo_produto']; ?></td>
+                                <td><?php echo $pedido['endereco_entrega']; ?></td>
+                                <td><?php echo $pedido['status']; ?></td>
+                                <td class="table-actions">
+                                    <a href="editar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>" class="btn btn-edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="apagar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>" class="btn btn-delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="finalizar_pedidoEntrega.php?id=<?php echo $pedido['id']; ?>&quantidade=<?php echo $pedido['quantidade']; ?>&tipo_produto=<?php echo $pedido['tipo_produto']; ?>" class="btn btn-finish">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="8">Nenhum pedido encontrado.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <script>
-        // Dropdown Menu Script
-        const userInfo = document.querySelector(".user-info");
-        const dropdownMenu = document.querySelector(".dropdown-menu");
-        const arrowIcon = document.querySelector(".arrow");
-
-        userInfo.addEventListener("click", () => {
-            dropdownMenu.classList.toggle("show");
-            arrowIcon.classList.toggle("rotate");
-        });
-
-        // Fecha o dropdown se o usuário clicar fora dele
-        window.onclick = function (event) {
-            if (!event.target.matches(".user-info, .user-info *")) {
-                if (dropdownMenu.classList.contains("show")) {
-                    dropdownMenu.classList.remove("show");
-                    arrowIcon.classList.remove("rotate");
-                }
-            }
-        };
-    </script>
 
     <!-- Rodapé -->
-    <div class="admin-footer">
-        <div class="footer-logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Av. Karl Marx, Maputo, Moçambique</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-envelope"></i>
-            <span>contato@magelogelo.com</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-phone"></i>
-            <span>+258 84 123 4567</span>
-        </div>
-        <div class="footer-rights">
-            &copy; <?php echo date("Y"); ?> Magelo Fábrica de Gelo. Todos os direitos reservados.
-        </div>
-    </div>
-
+    <footer class="admin-footer">
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
+    </footer>
 </body>
 </html>

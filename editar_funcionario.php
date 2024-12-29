@@ -82,15 +82,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo-magelo.PNG" type="">
     <title>Editar Funcionário - Magelo Fábrica de Gelo</title>
     <link rel="stylesheet" href="css/funcionario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 
      <!-- Cabeçalho -->
      <div class="admin-header">
         <div class="logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            <a href="admin_dashboard.php">
+                <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
+            </a>
         </div>
         <div class="user-info">
             <i class="fas fa-user"></i>
@@ -170,24 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Footer -->
     <footer class="admin-footer">
-        <div class="footer-logo">
-            <img src="img/logo-magelo.PNG" alt="Logo Magelo Fábrica de Gelo">
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Av. Eduardo Mondlane 1527, Maputo, Moçambique</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-envelope"></i>
-            <span>magelo.moz@gmail.com</span>
-        </div>
-        <div class="footer-info">
-            <i class="fas fa-phone"></i>
-            <span>+258 82 306 1764</span>
-        </div>
-        <div class="footer-rights">
-            <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
-        </div>
+      <div class="footer-rights">
+        <p>&copy; 2024 Magelo Fábrica de Gelo. Todos os direitos reservados.</p>
+      </div>
     </footer>
 
 </body>

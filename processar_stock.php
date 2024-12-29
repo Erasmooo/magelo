@@ -57,6 +57,6 @@ $stmt_relatorio->bindParam(':quantidade_total', $nova_quantidade_total); // Cert
 $stmt_relatorio->execute();
 
 // Redireciona para a página de estoque com mensagem de sucesso
-header("Location: stock.php?success=Produto+adicionado+ao+estoque!");
+header("Location: stock.php?success=1");
 exit;
 ?>
